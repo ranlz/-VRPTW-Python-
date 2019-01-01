@@ -145,7 +145,12 @@ class Gene:
 
     def moveRandSubPathLeft(self):
         path = random.randrange(k)  # choose a path index
-        index = self.data.index(CENTER, path+1) # move to the chosen index
+        # 这里使用index是有问题的，第二个参数指定的是开始检索的位置，path+1并不是想要的第path个0开始的地方
+        #index = self.data.index(CENTER, path + 1)  # move to the chosen index
+        #找到第随机个基因串
+        allCenterPosition = [i for i, a in enumerate(self.data) if a == CENTER]
+        index = allCenterPosition[path]
+        
         # move first CENTER
         locToInsert = 0
         self.data.insert(locToInsert, self.data.pop(index))
